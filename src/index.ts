@@ -1,18 +1,19 @@
 import { Client } from "pg";
 import express from "express";
+import "dotenv/config";
 
 const app = express();
 app.use(express.json());
 
-const pgClient = new Client({
-  user: "postgress_owner",
-  password: "2kuMJxoF9GtQ",
-  port: 5432,
-  host: "ep-late-cloud-a5wtemyx.us-east-2.aws.neon.tech",
-  database: "postgress",
-  ssl: true,
-});
-
+// const pgClient = new Client({
+//   user: "postgress_owner",
+//   password: "2kuMJxoF9GtQ",
+//   port: 5432,
+//   host: "ep-late-cloud-a5wtemyx.us-east-2.aws.neon.tech",
+//   database: "postgress",
+//   ssl: true,
+// });
+const pgClient = new Client(process.env.DB_URI as string);
 app.listen(4444, async () => {
   try {
     await pgClient.connect();
